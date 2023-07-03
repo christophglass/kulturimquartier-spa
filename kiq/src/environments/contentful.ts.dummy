@@ -1,0 +1,5 @@
+export const contentful = {
+    space: 'space',
+    accessToken: 'accessToken',    
+    contentTypeIds: { }
+};
