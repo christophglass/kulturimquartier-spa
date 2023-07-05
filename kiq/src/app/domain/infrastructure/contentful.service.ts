@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, Space, ContentfulClientApi, EntrySkeletonType, EntryCollection } from 'contentful';
+import { createClient, ContentfulClientApi, ContentTypeCollection } from 'contentful';
 import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -17,11 +17,7 @@ export class ContentfulService {
     });
    }
 
-  getSpace(): Observable<Space> {
-    return from(this.cdaClient.getSpace());
-  }
-
-  getNews(): Observable<EntryCollection<EntrySkeletonType, undefined, string>> {
-    return from(this.cdaClient.getEntries(Object.assign( { content_type: environment.contentful.contentTypeIds.news } )));
+  getContentTypes(): Observable<ContentTypeCollection> {
+    return from(this.cdaClient.getContentTypes());
   }
 }
