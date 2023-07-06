@@ -17,7 +17,7 @@ export interface ContentTypePartialState {
 
 export const contentTypeAdapter: EntityAdapter<IContentType> =
     createEntityAdapter<IContentType>({
-    selectId: (contentType) => contentType.name!
+    selectId: (contentType) => contentType.sys.id
 });
 
 export const initialState: ContentTypeState = contentTypeAdapter.getInitialState({

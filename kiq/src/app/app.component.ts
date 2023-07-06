@@ -3,6 +3,7 @@ import { ContentTypeFacade } from './domain/application/contentType/contentType.
 import { Subscription } from 'rxjs';
 import { IContentType } from './domain/entities/IContentType';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener: () => void;
   private subs: Subscription = new Subscription();
 
-  constructor(private contentTypesFacade: ContentTypeFacade, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(private contentTypesFacade: ContentTypeFacade, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -35,5 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.subs.unsubscribe();
       this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  routeMeTo(contentType: IContentType): void {
+    this.router.navigate(['posts', contentType.sys.id ]);
   }
 }

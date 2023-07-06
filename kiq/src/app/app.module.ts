@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as fromContentTypes from './domain/+state/contentType/contentType.reducers';
 import { ContentTypeEffects } from './domain/+state/contentType/contentType.effects';
+import * as fromEntries from './domain/+state/entry/entry.reducers';
+import { EntryEffects } from './domain/+state/entry/entry.effects';
 import { PostsComponent } from './components/posts/posts.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,8 +29,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature(fromContentTypes.contentType_KEY, fromContentTypes.reducer),
+    StoreModule.forFeature(fromEntries.entry_KEY, fromEntries.reducer),
     EffectsModule.forRoot([]),
-    EffectsModule.forFeature([ContentTypeEffects]),
+    EffectsModule.forFeature([ContentTypeEffects, EntryEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !environment.production}),
     MatToolbarModule,
     MatButtonModule,
