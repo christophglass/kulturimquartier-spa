@@ -19,7 +19,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   
   constructor(private route: ActivatedRoute, private entryFacade: EntryFacade) {
     this.subs = new Subscription();
-    this.subs = new Subscription();
   }
 
   ngOnInit(): void {

@@ -25,6 +25,7 @@
     "@ngrx/entity": "^16.0.1",
     "@ngrx/store": "^16.0.1",
     "@ngrx/store-devtools": "^16.0.1",
+    "@sentry/angular-ivy": "^7.57.0",
     "contentful": "^10.3.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

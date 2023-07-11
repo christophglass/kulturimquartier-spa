@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,8 @@ import { DocumentToHtmlPipe } from './pipes/document-to-html.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { Router } from '@angular/router';
+import * as Sentry from "@sentry/angular-ivy";
 
 registerLocaleData(localeDe);
 
@@ -49,7 +51,23 @@ registerLocaleData(localeDe);
     MatCardModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "de-DE" }
+    { provide: LOCALE_ID, useValue: "de-DE" },
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    }, 
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
