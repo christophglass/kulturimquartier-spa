@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ContentType } from 'contentful';
 import { Subscription } from 'rxjs';
 import { EntryFacade } from 'src/app/domain/application/entry/entry.facade';
 import { IEntry } from 'src/app/domain/entities/IEntry';
@@ -16,12 +15,11 @@ export class PostsComponent implements OnInit, OnDestroy {
   entries?: IEntry[];
 
   private homeContentId: string = 'home';
-  private subs: Subscription;
-  private entrySubs: Subscription;
+  private subs: Subscription;  
   
   constructor(private route: ActivatedRoute, private entryFacade: EntryFacade) {
     this.subs = new Subscription();
-    this.entrySubs = new Subscription();
+    this.subs = new Subscription();
   }
 
   ngOnInit(): void {
@@ -29,8 +27,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subs.unsubscribe();
-      this.entrySubs.unsubscribe();
+      this.subs.unsubscribe();      
   }
 
   private subscibeToRouteParams(): void {
@@ -42,11 +39,11 @@ export class PostsComponent implements OnInit, OnDestroy {
     );
   }
 
-  private subscribeToEntries(): void {
-    this.entrySubs.unsubscribe();
-    
-    this.entrySubs.add(
-      this.entryFacade.entries$.subscribe((entries: IEntry[]) => this.entries = entries)
+  private subscribeToEntries(): void {       
+    this.subs.add(
+      this.entryFacade.entries$.subscribe((entries: IEntry[]) => {
+        this.entries = entries;
+      })
     );
 
     this.entryFacade.load(this.contentTypeId || this.homeContentId);

@@ -15,13 +15,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { DocumentToHtmlPipe } from './pipes/document-to-html.pipe';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,    
+    PostsComponent,
+    DocumentToHtmlPipe,    
   ],
   imports: [
     BrowserModule,
@@ -38,8 +46,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "de-DE" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

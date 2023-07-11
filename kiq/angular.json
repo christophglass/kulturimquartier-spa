@@ -34,7 +34,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "contentful"
+              "contentful",
+              "@contentful/rich-text-html-renderer"
             ]
           },
           "configurations": {

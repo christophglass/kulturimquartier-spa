@@ -1,3 +1,21 @@
-<p>{{ contentTypeId }} works!</p>
+<!-- <p>{{ contentTypeId }} works!</p>
+<pre>{{ entries | json }}</pre>-->
 
-<pre>{{ entries | json }}</pre>
+<mat-card>
+    <mat-card-content>
+        <div *ngFor="let entry of entries">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>{{ entry.sys.contentType.sys.id }}</mat-card-subtitle>
+                    <mat-card-title>{{ entry.fields['heading'] }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p [innerHTML]="entry.fields['content'] | documentToHtml"></p>                                        
+                  </mat-card-content>
+                  <mat-card-footer>
+                    <p>Erstellt am {{ entry.sys.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}, aktualsiert am {{ entry.sys.updatedAt | date: 'dd.MM.yyyy HH:mm:ss' }}.</p>
+                  </mat-card-footer>
+            </mat-card>
+        </div>
+    </mat-card-content>
+</mat-card>
