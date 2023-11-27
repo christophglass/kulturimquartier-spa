@@ -10,9 +10,10 @@
                     <mat-card-title>{{ entry.fields['heading'] }}</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <p [innerHTML]="entry.fields['content'] | documentToHtml"></p>                                        
+                    <p [innerHTML]="entry.fields['content'] | documentToHtml"></p>                                                            
                   </mat-card-content>
                   <mat-card-footer>
+                    <share-buttons theme="material-dark" [show]="11" image="https://loremflickr.com/320/240"></share-buttons>
                     <p>Erstellt am {{ entry.sys.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}, aktualsiert am {{ entry.sys.updatedAt | date: 'dd.MM.yyyy HH:mm:ss' }}.</p>
                   </mat-card-footer>
             </mat-card>

@@ -19,11 +19,14 @@ import { MatCardModule } from '@angular/material/card';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DocumentToHtmlPipe } from './pipes/document-to-html.pipe';
+import { IconPipe } from './pipes/icon.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { Router } from '@angular/router';
 import * as Sentry from "@sentry/angular-ivy";
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 registerLocaleData(localeDe);
 
@@ -32,6 +35,7 @@ registerLocaleData(localeDe);
     AppComponent,
     PostsComponent,
     DocumentToHtmlPipe,    
+    IconPipe,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ registerLocaleData(localeDe);
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de-DE" },

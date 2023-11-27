@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, Injector} from '@angular/core';
 import { ContentTypeFacade } from './domain/application/contentType/contentType.facade';
 import { Subscription } from 'rxjs';
 import { IContentType } from './domain/entities/IContentType';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { sortBy } from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +22,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private contentTypesFacade: ContentTypeFacade, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();    
   }
 
   ngOnInit(): void {
       this.subs.add(
-        this.contentTypesFacade.contenttype$.subscribe((contentTypes: IContentType[]) => this.contentTypes = contentTypes)
+        this.contentTypesFacade.contenttype$.subscribe((contentTypes: IContentType[]) => this.contentTypes = this._orderContentTypes(contentTypes))
       );
 
       this.contentTypesFacade.load();
@@ -40,5 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   routeMeTo(contentType: IContentType): void {
     this.router.navigate(['posts', contentType.sys.id ]);
+  }
+
+  private _orderContentTypes(contentTypes: IContentType[]): IContentType[] {
+    return sortBy(contentTypes, ['name'])
   }
 }
