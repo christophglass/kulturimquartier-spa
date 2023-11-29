@@ -27,6 +27,7 @@ import { Router } from '@angular/router';
 import * as Sentry from "@sentry/angular-ivy";
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { PostComponent } from './components/post/post.component';
 
 registerLocaleData(localeDe);
 
@@ -34,6 +35,7 @@ registerLocaleData(localeDe);
   declarations: [
     AppComponent,
     PostsComponent,
+    PostComponent,
     DocumentToHtmlPipe,    
     IconPipe,
   ],
@@ -53,7 +55,10 @@ registerLocaleData(localeDe);
     MatSidenavModule,
     MatListModule,
     MatCardModule,
-    ShareButtonsModule,
+    ShareButtonsModule.withConfig({
+      include: environment.sharebuttons.include,
+      theme: environment.sharebuttons.theme      
+  }),
     ShareIconsModule
   ],
   providers: [

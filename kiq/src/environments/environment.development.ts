@@ -1,6 +1,8 @@
 import { contentful } from "./contentful";
+import { sharebuttons } from "./sharebuttons";
 
 export const environment = {
     production: false,
-    contentful: { ...contentful }
+    contentful: { ...contentful },
+    sharebuttons: { ...sharebuttons }
 };

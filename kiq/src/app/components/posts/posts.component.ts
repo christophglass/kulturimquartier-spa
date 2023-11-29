@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { EntryFacade } from 'src/app/domain/application/entry/entry.facade';
-import { IEntry } from 'src/app/domain/entities/IEntry';
 
 @Component({
   selector: 'app-posts',
@@ -12,7 +11,8 @@ import { IEntry } from 'src/app/domain/entities/IEntry';
 export class PostsComponent implements OnInit, OnDestroy {
 
   contentTypeId?: string;
-  entries?: IEntry[];
+  entryId?: string;
+  entriesIds?: any[];
 
   private homeContentId: string = 'home';
   private subs: Subscription;  
@@ -33,6 +33,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.route.params.subscribe((params: Params) => {
         this.contentTypeId = params['contentTypeId'] || this.homeContentId;
+        this.entryId = params['entryId'] || '';
         this.subscribeToEntries();
       })
     );
@@ -40,8 +41,12 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   private subscribeToEntries(): void {       
     this.subs.add(
-      this.entryFacade.entries$.subscribe((entries: IEntry[]) => {
-        this.entries = entries;
+      this.entryFacade.entriesIds$.subscribe((entriesIds: any[]) => {
+        if (this.entryId && entriesIds.includes(this.entryId)) {
+          this.entriesIds = [ this.entryId ];
+        } else {
+          this.entriesIds = entriesIds || [];
+        }        
       })
     );
 

@@ -24,3 +24,13 @@ export const getEntryEntities = createSelector(
   getEntriestate,
   (state: Entriestate) => selectEntities(state)
 );
+
+export const getEntryIds = createSelector(
+  getEntriestate,
+  (state: Entriestate) => state.ids
+);
+
+export const getEntryById = (id: string) => createSelector(
+  getEntriestate,
+  (state: Entriestate) => state.entities[id]
+);

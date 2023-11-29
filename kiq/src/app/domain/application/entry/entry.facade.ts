@@ -9,6 +9,8 @@ export class EntryFacade {
     
     entriesLoaded$ = this.store.pipe(select(EntriesSelectors.getEntriesLoaded));  
     entries$ = this.store.pipe(select(EntriesSelectors.getAllEntries));  
+    entry$ = (id: string) => this.store.pipe(select(EntriesSelectors.getEntryById(id)));
+    entriesIds$ = this.store.pipe(select(EntriesSelectors.getEntryIds));
 
     constructor(private store: Store<fromEntries.EntryPartialState>) {}
 
